@@ -8,10 +8,18 @@
     "location": "Aula Magna, Corp A",
     "date": "2025-11-15T10:00",
     "maxParticipants": 200,
-    "registered": 145,
-    "organizer": "Universitatea Tech",
+    "registered": 1,
+    "organizer": "Universitatea 'Ștefan cel Mare' din Suceava",
     "image": null,
-    "reviews": []
+    "reviews": [],
+    "participants": [
+        {
+            "name": "Utilizator Test",
+            "email": "test@usv.ro",
+            "studentId": "FII-1234",
+            "registrationDate": "2025-11-01T10:00:00.000Z"
+        }
+    ]
   },
   {
     "id": "2",
@@ -22,7 +30,7 @@
     "location": "Sala Polivalentă",
     "date": "2025-11-20T20:00",
     "maxParticipants": 500,
-    "registered": 432,
+    "registered": 0,
     "organizer": "Consiliul Studențesc",
     "image": null,
     "reviews": [
@@ -32,7 +40,8 @@
         "comment": "Un eveniment fantastic! Muzica a fost extraordinară!",
         "date": "2025-11-21"
       }
-    ]
+    ],
+    "participants": []
   },
   {
     "id": "3",
@@ -43,10 +52,11 @@
     "location": "Campus Central",
     "date": "2025-11-25T09:00",
     "maxParticipants": 1000,
-    "registered": 687,
+    "registered": 0,
     "organizer": "Departamentul Cariere",
     "image": null,
-    "reviews": []
+    "reviews": [],
+    "participants": []
   },
   {
     "id": "4",
@@ -57,10 +67,11 @@
     "location": "Laboratorul 401, Corp C",
     "date": "2025-12-01T10:00",
     "maxParticipants": 80,
-    "registered": 56,
+    "registered": 0,
     "organizer": "Facultatea de Informatică",
     "image": null,
-    "reviews": []
+    "reviews": [],
+    "participants": []
   },
   {
     "id": "5",
@@ -71,10 +82,11 @@
     "location": "Terenul de Sport Universitar",
     "date": "2025-11-30T14:00",
     "maxParticipants": 160,
-    "registered": 144,
+    "registered": 0,
     "organizer": "Asociația Sportivă Studențească",
     "image": null,
-    "reviews": []
+    "reviews": [],
+    "participants": []
   },
   {
     "id": "6",
@@ -85,9 +97,10 @@
     "location": "Parcul Universității",
     "date": "2025-11-12T09:00",
     "maxParticipants": 50,
-    "registered": 34,
+    "registered": 0,
     "organizer": "Liga Voluntarilor Universitari",
     "image": null,
-    "reviews": []
+    "reviews": [],
+    "participants": []
   }
 ]
