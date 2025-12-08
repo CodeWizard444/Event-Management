@@ -56,3 +56,10 @@ exports.register = (req, res) => {
 
   res.status(201).json({ message: "Cont creat cu succes!", userId: newUser.id });
 };
+
+// --- LOGICĂ NOUĂ ---
+exports.logout = (req, res) => {
+    // Într-o aplicație reală, aici ai putea pune token-ul într-un Blacklist (Redis/DB)
+    // Momentan, doar informăm clientul că acțiunea a reușit
+    res.status(200).json({ message: "Logout realizat cu succes." });
+};

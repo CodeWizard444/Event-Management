@@ -1,7 +1,7 @@
 const multer = require('multer'); 
 const path = require('path');    
 const utilityService = require('../services/utility.service');
-
+const utilityController = require('../controllers/utility.controller');
 
 exports.generateReport = (req, res) => {
     
