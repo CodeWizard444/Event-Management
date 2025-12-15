@@ -1,70 +1,57 @@
+// src/controllers/utility.controller.js
 const multer = require('multer'); 
-const path = require('path');    
-const utilityService = require('../services/utility.service');
-const utilityController = require('../controllers/utility.controller');
+const path = require('path'); 
+// Presupunem că utility.service.js exportă generateCentralReport
+const utilityService = require('../services/utility.service'); 
 
-exports.generateReport = (req, res) => {
-    
-    const mockReport = {
-        title: "Raport General Evenimente",
-        dateGenerated: new Date().toISOString().split('T')[0],
-        totalEvents: 6,
-        totalOrganizers: 3,
-        registrationsInLastMonth: 120,
-        topOrganizer: "Universitatea 'Ștefan cel Mare' din Suceava"
-    };
-    res.json(mockReport);
-};
-
+// --- Configurare Multer (Upload) ---
 const storage = multer.diskStorage({
-  
     destination: (req, file, cb) => {
-      
         cb(null, 'uploads/'); 
     },
-
     filename: (req, file, cb) => {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-       
         cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
     }
 });
-
 
 const uploadMiddleware = multer({ 
     storage: storage,
     limits: { fileSize: 5 * 1024 * 1024 } 
 });
 
-
-
-exports.uploadMaterial = [
-  
+// --- 1. Handler pentru Upload ---
+// Express acceptă un array de middleware-uri ca handler
+const uploadMaterial = [
     uploadMiddleware.single('material'), 
-    
-    
     (req, res) => {
         if (!req.file) {
             return res.status(400).json({ 
-                message: "Niciun fișier nu a fost încărcat. Asigurați-vă că folosiți 'multipart/form-data' și câmpul 'material'." 
+                message: "Niciun fișier nu a fost încărcat." 
             });
         }
-
-        
         const fileUrl = `/uploads/${req.file.filename}`;
-        
         res.json({
             status: "success",
-            message: `Fișierul '${req.file.originalname}' a fost încărcat cu succes (stocat local).`,
-            fileName: req.file.filename,
+            message: `Fișierul a fost încărcat cu succes.`,
             path: fileUrl,
-            mimeType: req.file.mimetype,
-            size: req.file.size
         });
     }
 ];
 
-exports.generateReport = (req, res) => {
-    const reportData = utilityService.generateCentralReport();
-    res.json(reportData);
+// --- 2. Handler pentru Raport ---
+const generateReport = async (req, res) => {
+    try {
+        const reportData = await utilityService.generateCentralReport();
+        res.json(reportData);
+    } catch (error) {
+        console.error("Eroare la generarea raportului:", error);
+        res.status(500).json({ message: "Eroare internă la generarea raportului." });
+    }
+};
+
+// EXPORTUL CORECT: Toate funcțiile sunt exportate într-un obiect
+module.exports = {
+    uploadMaterial,
+    generateReport
 };

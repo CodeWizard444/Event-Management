@@ -3,6 +3,8 @@ require('dotenv').config();
 
 const app = require("./src/app");
 const mongoose = require('mongoose'); // Adaugat: Modulul Mongoose
+const fs = require('fs');      // <--- NOU
+const path = require('path');  // <--- NOU
 
 // Variabile de mediu
 const PORT = process.env.PORT || 5000;

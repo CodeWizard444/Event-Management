@@ -1,17 +1,11 @@
+// src/routes/utility.routes.js
+
+// 1. Asigură-te că Express este importat corect
 const express = require("express");
+// 2. Asigură-te că routerul este INSTANȚIAT corect
 const router = express.Router();
 
-// --- IMPORTURI NECESARE ---
-const notificationController = require('../controllers/notification.controller');
-// LINIA DE MAI JOS LIPSEA:
-const utilityController = require('../controllers/utility.controller'); 
+// Aici nu mai avem rute sau importuri (le-ai comentat)
 
-// Rute
-router.post("/notifications/send", notificationController.sendEventNotification);
-
-// Acum variabila utilityController există și nu va mai da eroare
-router.post("/storage/upload", utilityController.uploadMaterial); 
-
-router.get("/reports/generate", utilityController.generateReport);
-
+// 3. Asigură-te că exportul este CORECT (fără paranteze, fără obiect)
 module.exports = router;

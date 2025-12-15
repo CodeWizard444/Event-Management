@@ -34,3 +34,5 @@ exports.sendRegistrationConfirmation = async (email, eventTitle) => {
     const body = `Salut, înscrierea ta la evenimentul "${eventTitle}" a fost înregistrată cu succes. Te așteptăm!`;
     return exports.sendNotification(email, subject, body);
 };
+
+module.exports = { };

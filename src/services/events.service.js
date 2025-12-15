@@ -149,3 +149,4 @@ exports.checkInByQR = async (qrCodeString) => {
 
     return { success: true, student: participant.name, eventTitle: event.title };
 };
+module.exports = { };

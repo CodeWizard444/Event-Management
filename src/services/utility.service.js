@@ -78,3 +78,5 @@ exports.generateCentralReport = () => {
         }
     };
 };
+
+module.exports = { };
