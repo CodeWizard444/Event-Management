@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Ana Popescu",
+    "email": "ana.popescu@student.univ.ro",
+    "password": "password123",
+    "role": "STUDENT"
+  },
+  {
+    "id": 2,
+    "name": "Prof. Ion Marinescu",
+    "email": "ion.marinescu@univ.ro",
+    "password": "password123",
+    "role": "ORGANIZER"
+  },
+  {
+    "id": 3,
+    "name": "Administrator",
+    "email": "admin@univ.ro",
+    "password": "adminpassword",
+    "role": "ADMIN"
+  }
+]
