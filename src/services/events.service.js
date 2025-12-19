@@ -2,7 +2,7 @@
 // NOU: Importăm modelul Event Mongoose
 const Event = require('../models/Event');
 // Am păstrat notificationService, dar vom elimina celelalte importuri vechi
-const notificationService = require('./notification.service');
+// const notificationService = require('./notification.service');
 
 // Eliminăm funcțiile de citire/scriere pe fișier: getEventsData și saveEventsData
 // VECHI: const fs = require('fs');
@@ -21,23 +21,29 @@ exports.getAllEvents = async () => {
 exports.getEvents = async (filters) => {
     const query = { status: 'APPROVED' }; // Filtru implicit: doar evenimentele aprobate
 
-    if (filters.type) {
+    if (filters.type && filters.type !== "") {
         // Căutare exactă pe câmpul 'type'
         query.type = new RegExp('^' + filters.type + '$', 'i'); 
     }
-    if (filters.faculty) {
+    if (filters.faculty && filters.faculty !== "") {
         // Căutare parțială pe câmpul 'faculty'
         query.faculty = new RegExp(filters.faculty, 'i');
     }
-    if (filters.q) {
+    if (filters.q ) {
         const q = new RegExp(filters.q, 'i'); // Regex 'i' pentru case-insensitive
         // Căutare pe Titlu SAU Descriere (folosim operatorul $or)
         query.$or = [{ title: q }, { description: q }];
     }
 
-    // Executăm interogarea și populăm detaliile organizatorului
-    return await Event.find(query).populate('organizerId');
-};
+    // EXECUTĂM INTEROGAREA CORECT
+    try {
+        const eventsList = await Event.find(query).populate('organizerId');
+        // Returnăm array-ul sau un array gol dacă e null
+        return eventsList || [];
+    } catch (error) {
+        console.error("Eroare la interogarea bazei de date:", error);
+        throw error; // Trimitem eroarea mai departe către controller
+    }};
 
 // NOU: Găsirea după ID (folosește _id Mongoose)
 exports.getEventById = async (id) => {
@@ -104,7 +110,7 @@ exports.registerForEvent = async (eventId, participantData) => {
     // Nu mai trebuie să actualizăm 'registered', deoarece este un câmp virtual
     await event.save(); 
 
-    notificationService.sendRegistrationConfirmation(participantData.email, event.title);
+    // notificationService.sendRegistrationConfirmation(participantData.email, event.title);
     return { success: true, ticket: newParticipant, ...event.toObject({ virtuals: true }) }; // toObject pentru a include câmpul 'registered'
 };
 
@@ -149,4 +155,14 @@ exports.checkInByQR = async (qrCodeString) => {
 
     return { success: true, student: participant.name, eventTitle: event.title };
 };
-module.exports = { };
+// La finalul src/services/events.service.js
+module.exports = {
+    getAllEvents: exports.getAllEvents,
+    getEvents: exports.getEvents,
+    getEventById: exports.getEventById,
+    createEvent: exports.createEvent,
+    registerForEvent: exports.registerForEvent,
+    getParticipants: exports.getParticipants,
+    updateEventStatus: exports.updateEventStatus,
+    checkInByQR: exports.checkInByQR
+};

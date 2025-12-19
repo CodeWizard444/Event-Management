@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config(); 
+const bcrypt = require('bcryptjs'); // Importă bcrypt
 
 // ************************************************************
 // 1. IMPORTURI DE MODEL ȘI CONFIGURARE
@@ -58,7 +59,7 @@ const importData = async () => {
         // Citirea evenimentelor
         let eventData = readJsonFile('events.json');
 
-        
+          
         // 3.3 INSERAREA ORGANIZATORILOR ȘI UTILIZATORILOR
         
         // Inserează organizatorii
@@ -66,8 +67,19 @@ const importData = async () => {
         console.log(`🎉 ${organizers.length} organizatori adăugați din JSON!`);
 
         // Inserează utilizatorii
-        const users = await User.insertMany(userData);
-        console.log(`🧑‍💻 ${users.length} utilizatori adăugați din JSON!`);
+           // HASH-UIREA PAROLELOR înainte de inserare
+        const hashedUsers = await Promise.all(userData.map(async (user) => {
+            const salt = await bcrypt.genSalt(10);
+            user.password = await bcrypt.hash(user.password, salt);
+            return user;
+        }));
+
+        // Inserează utilizatorii cu parolele hash-uite
+        const users = await User.insertMany(hashedUsers); 
+        console.log(`🧑‍💻 ${users.length} utilizatori adăugați cu parole criptate!`);
+        
+        // const users = await User.insertMany(userData);
+        // console.log(`🧑‍💻 ${users.length} utilizatori adăugați din JSON!`);
 
 
         // 3.4 MAPAREA ȘI INSERAREA EVENIMENTELOR

@@ -23,6 +23,7 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 // --- DEFINIRE RUTE API ---
 //app.use("/api/events", eventsRouter);
 app.use("/api/organizers", organizersRouter);
+app.use("/api/events", eventsRouter);
 
 // NOU: Introducem un router minimalist/test pe linia 25 pentru a înlocui utilityRouter
 const testRouter = express.Router();

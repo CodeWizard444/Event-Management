@@ -6,11 +6,11 @@ exports.getEvents = async (req, res) => {
     try {
         // Așteptăm rezultatul interogării MongoDB
         const events = await eventsService.getEvents({ type, faculty, q });
-        res.json(events);
+        res.json(events || []);
     } catch (err) {
         // Logarea erorii complete este utilă pentru debug
         console.error("Eroare la getEvents:", err); 
-        res.status(500).json({ message: "Eroare la filtrarea evenimentelor.", error: err.message });
+        res.status(500).json([]);
     }
 };
 

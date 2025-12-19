@@ -8,11 +8,11 @@ const path = require('path');  // <--- NOU
 
 // Variabile de mediu
 const PORT = process.env.PORT || 5000;
-//const MONGO_URI = process.env.MONGO_URI; // Adaugat: Variabila URI din .env
+const MONGO_URI = process.env.MONGO_URI; // Adaugat: Variabila URI din .env
 
 // ************************************************************
 // NOU: Setezi URI-ul MongoDB direct în cod (NU este recomandat pentru producție)
-const MONGO_URI = 'mongodb://127.0.0.1:27017/eventManagementDB'; 
+// const MONGO_URI = 'mongodb://127.0.0.1:27017/eventManagementDB'; 
 // Asigură-te că folosești URI-ul corect pentru baza ta de date!
 // ************************************************************
 
